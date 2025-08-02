@@ -17,6 +17,12 @@
 
     /* Linting */
     "strict": true,
+
+    /* paths */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }

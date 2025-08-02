@@ -29,6 +29,8 @@ export default tseslint.config([
       'simple-import-sort/imports': 'warn',
       'simple-import-sort/exports': 'warn',
 
+      'react-refresh/only-export-components': 'off',
+
       '@typescript-eslint/no-unused-vars': ['warn', {
         'varsIgnorePattern': '^_',
         'argsIgnorePattern': '^_',
