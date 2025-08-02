@@ -7,7 +7,7 @@ function App() {
         Wrapper
       </div>
     </div>
-  )
+  );
 }
 
 export default App;

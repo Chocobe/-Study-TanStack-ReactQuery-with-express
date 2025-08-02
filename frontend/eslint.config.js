@@ -4,6 +4,8 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
+import stylistic from '@stylistic/eslint-plugin';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default tseslint.config([
   globalIgnores(['dist']),
@@ -18,6 +20,39 @@ export default tseslint.config([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    plugins: {
+      '@stylistic': stylistic,
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': 'warn',
+      'simple-import-sort/exports': 'warn',
+
+      '@typescript-eslint/no-unused-vars': ['warn', {
+        'varsIgnorePattern': '^_',
+        'argsIgnorePattern': '^_',
+        'caughtErrors': 'none',
+        'destructuredArrayIgnorePattern': '^_',
+        'ignoreRestSiblings': true,
+      }],
+
+      '@stylistic/indent': ['error', 2, {
+        'SwitchCase': 1,
+        'VariableDeclarator': 1,
+      }],
+      '@stylistic/semi': 'error',
+      '@stylistic/quotes': ['error', 'single'],
+      '@stylistic/comma-dangle': ['error', {
+        'arrays': 'always-multiline',
+        'objects': 'always-multiline',
+        'imports': 'always-multiline',
+        'exports': 'always-multiline',
+        'functions': 'never',
+        'enums': 'always-multiline',
+        'generics': 'never',
+        'tuples': 'always-multiline',
+      }],
     },
   },
 ])
