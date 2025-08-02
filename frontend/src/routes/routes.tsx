@@ -1,14 +1,14 @@
 import { RouteObject } from 'react-router';
 
-import HomePage from '@/pages/HomePage/HomePage';
+import LoginPage from '@/pages/LoginPage/LoginPage';
 import TodoListPage from '@/pages/TodoListPage/TodoListPage';
 
 import routePathFactory from './routePathFactory';
 
 const routes: RouteObject[] = [
   {
-    path: routePathFactory.homePage(),
-    element: <HomePage />,
+    path: routePathFactory.loginPage(),
+    element: <LoginPage />,
   },
   {
     path: routePathFactory.todoListPage(),

@@ -1,0 +1,31 @@
+.LoginPage {
+  @apply w-full h-full;
+  @apply flex justify-center items-center;
+  @apply overflow-hidden;
+
+  &-main {
+    @apply p-10;
+    @apply w-[500px];
+    @apply border border-border rounded-lg;
+
+    &-header {
+      @apply flex flex-col items-center gap-5;
+
+      .logo {
+        @apply w-[64px] h-[64px];
+      }
+
+      .title {
+        @apply text-gray-800 text-3xl font-medium;
+      }
+    }
+
+    &-formWrapper {
+      @apply mt-10;
+    }
+
+    &-actionsWrapper {
+      @apply mt-10;
+    }
+  }
+}

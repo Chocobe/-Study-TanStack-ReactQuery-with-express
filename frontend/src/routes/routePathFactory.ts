@@ -1,6 +1,6 @@
 const routePathFactory = {
-  homePage() {
-    return '/' as const;
+  loginPage() {
+    return '/login' as const;
   },
   todoListPage() {
     return '/todo-list' as const;
