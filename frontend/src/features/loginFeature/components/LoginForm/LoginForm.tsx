@@ -40,7 +40,10 @@ function LoginForm({ register, formState }: TProps) {
           />
 
           {formState.errors?.[id] && (
-            <div className="errorMessage">
+            <div 
+              className="errorMessage"
+              role="alert"
+            >
               * {formState.errors[id].message}
             </div>
           )}
