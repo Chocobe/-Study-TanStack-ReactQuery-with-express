@@ -1,0 +1,14 @@
+.LoginButton {
+  @apply w-full;
+  @apply text-white;
+  @apply bg-sky-500;
+
+  &:hover {
+    @apply bg-sky-500;
+    @apply opacity-80;
+  }
+
+  &:active {
+    @apply opacity-90;
+  }
+}
