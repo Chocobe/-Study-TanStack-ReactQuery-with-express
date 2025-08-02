@@ -1,22 +1,13 @@
 import './App.css';
 
-import { Button } from './components/shadcn-ui/button';
+import { useRoutes } from 'react-router';
+
+import routes from './routes/routes';
 
 function App() {
-  return (
-    <div className="App">
-      <div className="App-wrapper">
-        Wrapper
-      </div>
+  const element = useRoutes(routes);
 
-      <Button
-        variant="secondary"
-        onClick={() => console.log('onClick()')}
-      >
-        Click me!
-      </Button>
-    </div>
-  );
+  return element;
 }
 
 export default App;
