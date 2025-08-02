@@ -3,9 +3,9 @@ import './LoginPage.css';
 import { FormProvider } from 'react-hook-form';
 
 import ReactLogo from '@/assets/react.svg?react';
-import LoginButton from '@/features/LoginButton/LoginButton';
-import useLoginForm from '@/features/LoginForm/hooks/useLoginForm';
-import LoginForm from '@/features/LoginForm/LoginForm';
+import LoginButton from '@/features/loginFeature/components/LoginButton/LoginButton';
+import LoginForm from '@/features/loginFeature/components/LoginForm/LoginForm';
+import useLoginForm from '@/features/loginFeature/hooks/useLoginForm';
 
 function LoginPage() {
   const { loginForm, onSubmit } = useLoginForm();

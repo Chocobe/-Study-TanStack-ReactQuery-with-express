@@ -4,7 +4,7 @@ import { FormState, UseFormRegister } from 'react-hook-form';
 
 import { Input } from '@/components/shadcn-ui/input';
 
-import { TLoginFormSchema } from './schema/loginFormSchema';
+import { TLoginFormSchema } from '../../schema/loginFormSchema';
 
 type TProps = {
   register: UseFormRegister<TLoginFormSchema>;
