@@ -1,17 +1,24 @@
 import './LoginForm.css';
 
-import { Fragment } from 'react/jsx-runtime';
+import { FormState, UseFormRegister } from 'react-hook-form';
 
 import { Input } from '@/components/shadcn-ui/input';
 
-function LoginForm() {
+import { TLoginFormSchema } from './schema/loginFormSchema';
+
+type TProps = {
+  register: UseFormRegister<TLoginFormSchema>;
+  formState: FormState<TLoginFormSchema>;
+};
+
+function LoginForm({ register, formState }: TProps) {
   const items = [
     {
-      id: 'email',
+      id: 'email' as keyof TLoginFormSchema,
       placeholder: 'Email',
     },
     {
-      id: 'password',
+      id: 'password' as keyof TLoginFormSchema,
       placeholder: 'Password',
     },
   ];
@@ -22,13 +29,22 @@ function LoginForm() {
       onSubmit={e => e.preventDefault()}
     >
       {items.map(({ id, placeholder }) => (
-        <Fragment key={id}>
+        <div
+          className="item"
+          key={id}
+        >
           <Input
-            id={id}
+            {...register(id)}
             className="itemInput"
             placeholder={placeholder}
           />
-        </Fragment>
+
+          {formState.errors?.[id] && (
+            <div className="errorMessage">
+              * {formState.errors[id].message}
+            </div>
+          )}
+        </div>
       ))}
     </form>
   );

@@ -1,7 +1,16 @@
 .LoginForm {
   @apply flex flex-col gap-5;
 
-  .itemInput {
+  .item {
     /*  */
+
+    .itemInput {
+      /*  */
+    }
+
+    .errorMessage {
+      @apply p-1;
+      @apply text-red-400 text-sm;
+    }
   }
 }
