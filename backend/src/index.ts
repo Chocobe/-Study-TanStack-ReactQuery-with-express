@@ -17,10 +17,10 @@ app.use(cors());
 app.use(morgan('combined'));
 
 app.use('/api/v1/hello', (req, res) => {
-  console.log('🐳 /hello');
+  console.log('🐳 /hello 🐳');
 
   res.json({
-    message: 'Hello Luna!',
+    message: 'Hello Luna 🥰🥰🥰',
   });
 });
 
