@@ -1,13 +1,26 @@
 name: todo-list-dev
 
 services:
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.dev.frontend
+    image: chocobe/todos-dev-frontend
+    ports:
+      - 3001:5173
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    networks:
+      - todos-network
+
   backend:
     build:
       context: ../backend
       dockerfile: ../docker/Dockerfile.dev.backend
     image: chocobe/todos-dev-backend
     ports:
-      - 3005:3001
+      - 3002:3001
     volumes:
       - ../backend:/app
       - /app/node_modules
@@ -18,8 +31,6 @@ services:
 
   database:
     image: mysql:9.4
-    ports:
-      - 3006:3306
     environment:
       MYSQL_ROOT_PASSWORD: hello-mysql
       MYSQL_DATABASE: miles-database
