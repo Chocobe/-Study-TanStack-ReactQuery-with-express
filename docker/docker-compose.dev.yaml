@@ -21,6 +21,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: hello-mysql
       MYSQL_DATABASE: miles-database
+    volumes:
+      - ../dev-database/database-volume:/var/lib/mysql
+      - ../dev-database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - todos-network
 
