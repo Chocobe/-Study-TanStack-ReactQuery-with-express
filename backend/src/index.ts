@@ -1,11 +1,20 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
 dotenv.config({
   path: process.env.NODE_ENV === 'production' ? '.env' : '.env.development',
 });
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(helmet());
+app.use(cors());
+app.use(morgan('combined'));
 
 app.use('/api/v1/hello', (req, res) => {
   console.log('🐳 /hello');
@@ -30,6 +39,4 @@ app.listen(process.env.PORT, () => {
   console.log(`--   http://localhost:${process.env.PORT}   --`);
   console.log('--                           --');
   console.log('-------------------------------');
-
-  console.log(process.env.NODE_ENV);
 });
