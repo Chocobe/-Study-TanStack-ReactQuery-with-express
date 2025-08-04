@@ -7,7 +7,7 @@ services:
       dockerfile: ../docker/Dockerfile.dev.frontend
     image: chocobe/todos-dev-frontend
     ports:
-      - 3001:5173
+      - 3000:5173
     volumes:
       - ../frontend:/app
       - /app/node_modules
@@ -20,7 +20,7 @@ services:
       dockerfile: ../docker/Dockerfile.dev.backend
     image: chocobe/todos-dev-backend
     ports:
-      - 3002:3001
+      - 3001:3001
     volumes:
       - ../backend:/app
       - /app/node_modules
