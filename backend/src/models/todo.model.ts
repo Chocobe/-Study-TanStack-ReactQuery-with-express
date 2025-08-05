@@ -72,3 +72,46 @@ export async function updateTodoContent({
 
   return todo ?? null;
 }
+
+export async function toggleTodoCompleted(id: number, userId: number) {
+  const [rows] = await db.query(
+    `
+      SELECT * FROM todos
+      WHERE id = ? AND user_id = ?
+    `,
+    [id, userId]
+  );
+
+  const todo = (rows as any[])?.[0];
+
+  if (!todo) {
+    return null;
+  }
+
+  const newCompleted = !todo.completed;
+
+  await db.query(
+    `
+      UPDATE todos
+      SET completed = ?, updated_at = NOW()
+      WHERE id = ? AND user_id = ?
+    `,
+    [newCompleted, id, userId]
+  );
+
+  const [updatedTodos] = await db.query(
+    `
+      SELECT * FROM todos
+      WHERE id = ? AND user_id = ?
+    `,
+    [id, userId]
+  );
+
+  const updatedTodo = (updatedTodos as any[])?.[0];
+
+  if (!updatedTodo) {
+    return null;
+  }
+
+  return updatedTodo;
+}

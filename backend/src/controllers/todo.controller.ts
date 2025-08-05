@@ -93,3 +93,30 @@ export async function updateTodoContent(req: Request, res: Response)  {
 
   res.status(200).json(todo);
 }
+
+export async function toggleTodoCompleted(req: Request, res: Response) {
+  const id = Number(req.params.id);
+  const userId = Number(req.user?.id);
+
+  if (!id) {
+    return res.status(404).json({
+      message: 'Todo not found or not owned by user',
+    });
+  }
+
+  if (!userId) {
+    return res.status(401).json({
+      message: 'Unauthorized',
+    });
+  }
+
+  const todo = await todoModel.toggleTodoCompleted(id, userId);
+
+  if (!todo) {
+    return res.status(500).json({
+      message: 'Something went wrong',
+    });
+  }
+
+  res.status(200).json(todo);
+}
