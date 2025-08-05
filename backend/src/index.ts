@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import authRouter from './routes/auth.routes';
 
@@ -12,7 +11,6 @@ dotenv.config({
 
 const app = express();
 
-// app.use(bodyParser.json());
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
