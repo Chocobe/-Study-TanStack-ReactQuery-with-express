@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import authRouter from './routes/auth.routes';
+import todoRouter from './routes/todo.routes';
 
 dotenv.config({
   path: process.env.NODE_ENV === 'production' ? '.env' : '.env.development',
@@ -18,6 +19,7 @@ app.use(morgan('combined'));
 
 const ROOT_PATH = '/api/v1';
 app.use(`${ROOT_PATH}/auth`, authRouter);
+app.use(`${ROOT_PATH}/todo`, todoRouter);
 
 app.listen(process.env.PORT, () => {
   console.log('-------------------------------');
