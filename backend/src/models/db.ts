@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise';
 
-const dbPool = mysql.createPool({
+const db = mysql.createPool({
   host: process.env.DB_HOST || 'http://localhost',
   port: 3306,
   user: 'root',
@@ -8,9 +8,9 @@ const dbPool = mysql.createPool({
   database: process.env.DB_NAME || 'default',
 });
 
-dbPool.on('connection', () => {
+db.on('connection', () => {
   console.log('- Connected MySQL -');
   console.log(`- Database: ${process.env.DB_NAME}`);
 });
 
-export default dbPool;
+export default db;

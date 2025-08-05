@@ -1,7 +1,7 @@
-import dbPool from '../database/dbPool';
+import db from './db';
 
 export async function findByCredential(email: string, password: string) {
-  const [rows] = await dbPool.query(
+  const [rows] = await db.query(
     'SELECT * FROM users WHERE email = ? AND password = ?',
     [email, password]
   );
