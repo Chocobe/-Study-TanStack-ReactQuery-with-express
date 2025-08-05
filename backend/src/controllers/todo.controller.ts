@@ -55,3 +55,41 @@ export async function deleteTodo(req: Request, res: Response) {
 
   res.status(204).send();
 }
+
+export async function updateTodoContent(req: Request, res: Response)  {
+  const id = Number(req.params.id);
+  const { content } = req.body;
+  const userId = Number(req.user?.id);
+
+  if (!id) {
+    return res.status(404).json({
+      message: 'Todo not found or not owned by user',
+    });
+  }
+
+  if (!userId) {
+    return res.status(401).json({
+      message: 'Unauthorized',
+    });
+  }
+
+  if (!content) {
+    return res.status(401).json({
+      message: 'The content is required',
+    });
+  }
+
+  const todo = await todoModel.updateTodoContent({
+    userId,
+    id,
+    content,
+  });
+
+  if (!todo) {
+    return res.status(500).json({
+      message: 'Something went wrong',
+    });
+  }
+
+  res.status(200).json(todo);
+}

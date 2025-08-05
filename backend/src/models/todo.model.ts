@@ -1,4 +1,5 @@
 import db from './db';
+import { TUpdateTodoContentParams } from './todo.model.type';
 
 export async function findTodosByUserId(userId: number) {
   const [rows] = await db.query(
@@ -43,4 +44,31 @@ export async function deleteTodo(id: number, userId: number) {
   );
 
   return (rows as any).affectedRows.length > 0;
+}
+
+export async function updateTodoContent({
+  userId,
+  id,
+  content,
+}: TUpdateTodoContentParams) {
+  const [result] = await db.query(
+    `
+      UPDATE todos
+      SET content = ?, updated_at = NOW()
+      WHERE id = ? AND user_id = ?
+    `,
+    [content, id, userId]
+  );
+
+  const [rows] = await db.query(
+    `
+      SELECT * FROM todos
+      WHERE id = ? AND user_id = ?
+    `,
+    [id, userId]
+  );
+
+  const todo = (rows as any[])?.[0];
+
+  return todo ?? null;
 }
