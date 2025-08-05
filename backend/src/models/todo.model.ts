@@ -33,3 +33,14 @@ export async function createTodo(content: string, userId: number) {
 
   return (rows as any[])[0];
 }
+
+export async function deleteTodo(id: number, userId: number) {
+  const [rows] = await db.query(
+    `
+      DELETE FROM todos WHERE id = ? AND user_id = ?
+    `,
+    [id, userId]
+  );
+
+  return (rows as any).affectedRows.length > 0;
+}
