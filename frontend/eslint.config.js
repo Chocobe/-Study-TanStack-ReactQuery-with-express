@@ -38,6 +38,7 @@ export default tseslint.config([
         'destructuredArrayIgnorePattern': '^_',
         'ignoreRestSiblings': true,
       }],
+      '@typescript-eslint/no-empty-object-type': 'off',
 
       '@stylistic/indent': ['error', 2, {
         'SwitchCase': 1,
