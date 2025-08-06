@@ -15,10 +15,14 @@ function LoginForm({ register, formState }: TProps) {
   const items = [
     {
       id: 'email' as keyof TLoginFormSchema,
+      type: 'text',
+      autoFocus: true,
       placeholder: 'Email',
     },
     {
       id: 'password' as keyof TLoginFormSchema,
+      type: 'password',
+      autoFocus: false,
       placeholder: 'Password',
     },
   ];
@@ -28,7 +32,7 @@ function LoginForm({ register, formState }: TProps) {
       className="LoginForm"
       onSubmit={e => e.preventDefault()}
     >
-      {items.map(({ id, placeholder }) => (
+      {items.map(({ id, type, autoFocus, placeholder }) => (
         <div
           className="item"
           key={id}
@@ -36,6 +40,9 @@ function LoginForm({ register, formState }: TProps) {
           <Input
             {...register(id)}
             className="itemInput"
+            type={type}
+            autoFocus={autoFocus}
+            autoComplete="off"
             placeholder={placeholder}
           />
 
