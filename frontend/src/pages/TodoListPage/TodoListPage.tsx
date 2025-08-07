@@ -1,4 +1,22 @@
+import { useEffect } from 'react';
+
+// FIXME: for test
+import { getTodosApi } from '@/apis/todoApis/todoApis';
+
 function TodoListPage() {
+  // FIXME: for test
+  useEffect(() => {
+    const rr = async () => {
+      const response = await getTodosApi();
+
+      const responseData = response.data;
+
+      console.log('responseData: ', responseData);
+    };
+
+    rr();
+  }, []);
+
   return (
     <div className="TodoListPage">
       Todo List Page component
