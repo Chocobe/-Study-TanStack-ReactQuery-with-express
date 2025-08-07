@@ -1,0 +1,19 @@
+.TodoItemContent {
+  @apply text-[14px];
+
+  &.input {
+    /*  */
+  }
+
+  &.label {
+    @apply block;
+    @apply py-1 px-3;
+    @apply w-full h-[36px];
+    @apply leading-[27px];
+    @apply border border-transparent;
+
+    &.completed {
+      @apply text-gray-500 line-through;
+    }
+  }
+}

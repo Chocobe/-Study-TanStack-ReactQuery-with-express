@@ -1,15 +1,26 @@
 import './TodoItem.css';
 
 import { Pencil,Trash2 } from 'lucide-react';
+import { useState } from 'react';
 
 import { TTodoModel } from '@/apis/todoApis/todoApis.type';
 import { Button } from '@/components/shadcn-ui/button';
 import { Input } from '@/components/shadcn-ui/input';
-import { cn } from '@/lib/shadcn-ui/utils';
 
-type TProps = TTodoModel;
+import TodoItemContent from '../TodoItemContent/TodoItemContent';
 
-function TodoItem({ id, content, completed }: TProps) {
+type TProps = TTodoModel & {
+  onChangeContent: (content: string) => void;
+};
+
+function TodoItem({ 
+  id,
+  content,
+  completed,
+  onChangeContent,
+}: TProps) {
+  const [isEditMode, setIsEditMode] = useState(false);
+
   return (
     <div className="TodoItem">
       <div className="detailsWrapper">
@@ -21,15 +32,13 @@ function TodoItem({ id, content, completed }: TProps) {
           onChange={e => console.log('onChange() - checked: ', e.target.checked)}
         />
 
-        <label
-          htmlFor={String(id)}
-          className={cn(
-            'content',
-            { completed }
-          )}
-        >
-          {content}
-        </label>
+        <TodoItemContent
+          id={id}
+          content={content}
+          completed={completed}
+          isEditMode={isEditMode}
+          onChangeContent={onChangeContent}
+        />
       </div>
 
       <div className="actionsWrapper">
@@ -44,7 +53,7 @@ function TodoItem({ id, content, completed }: TProps) {
         <Button
           className="actionButton normalize"
           variant="outline"
-          onClick={() => console.log('onEdit()')}
+          onClick={() => setIsEditMode(isEditMode => !isEditMode)}
         >
           <Pencil className="icon" />
         </Button>

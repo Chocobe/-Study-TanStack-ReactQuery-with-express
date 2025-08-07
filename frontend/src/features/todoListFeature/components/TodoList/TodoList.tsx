@@ -9,6 +9,12 @@ type TProps = {
 };
 
 function TodoList({ items }: TProps) {
+  const onChangeContent = (content: string) => {
+    console.group('onChangeContent()');
+    console.log('content: ', content);
+    console.groupEnd();
+  };
+
   return (
     <div className="TodoList">
       {items.map(item => {
@@ -28,6 +34,7 @@ function TodoList({ items }: TProps) {
             completed={completed}
             created_at={created_at}
             updated_at={updated_at}
+            onChangeContent={onChangeContent}
           />
         );
       })}
