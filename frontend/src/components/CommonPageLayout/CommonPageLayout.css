@@ -1,0 +1,10 @@
+.CommonPageLayout {
+  @apply pb-8;
+  @apply w-full h-full;
+  @apply overflow-auto;
+
+  .content {
+    @apply mx-auto;
+    @apply w-full max-w-screen-lg;
+  }
+}

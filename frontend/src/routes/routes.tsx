@@ -6,6 +6,7 @@ import TodoListPage from '@/pages/TodoListPage/TodoListPage';
 import routePathFactory from './routePathFactory';
 import PublicRouteGuard from './guards/PublicRouteGuard';
 import ProtectedRouteGuard from './guards/ProtectedRouteGuard';
+import CommonPageLayout from '@/components/CommonPageLayout/CommonPageLayout';
 
 const routes: RouteObject[] = [
   {
@@ -18,7 +19,12 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    element: <ProtectedRouteGuard />,
+    // element: <ProtectedRouteGuard />,
+    element: (
+      <CommonPageLayout>
+        <ProtectedRouteGuard />
+      </CommonPageLayout>
+    ),
     children: [
       {
         path: routePathFactory.todoListPage(),
