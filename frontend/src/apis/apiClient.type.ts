@@ -1,3 +1,5 @@
+export const API_VERSION = '/api/v1';
+
 type TApiPathParams<T = void> = T extends void
   ? {}
   : { pathParams: T };
