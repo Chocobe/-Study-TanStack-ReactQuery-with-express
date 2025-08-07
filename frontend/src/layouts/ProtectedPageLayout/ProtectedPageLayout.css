@@ -1,0 +1,43 @@
+.ProtectedPageLayout {
+  @apply w-full h-full;
+  @apply flex flex-col;
+  @apply overflow-hidden;
+
+  .headerWrapper {
+    @apply p-5;
+    @apply w-full;
+    @apply bg-sky-600;
+
+    .header {
+      @apply mx-auto;
+      @apply w-full max-w-screen-lg;
+      @apply flex justify-between gap-5;
+      @apply text-white text-2xl font-medium;
+    }
+  }
+
+  .scrollWrapper {
+    @apply flex-1;
+    @apply w-full h-full;
+    @apply flex flex-col;
+    @apply overflow-auto;
+
+    .content {
+      @apply flex-1;
+      @apply mx-auto;
+      @apply w-full max-w-screen-lg;
+    }
+
+    .footerWrapper {
+      @apply p-8;
+      @apply w-full;
+      @apply bg-sky-800;
+
+      .footer {
+        @apply mx-auto;
+        @apply w-full max-w-screen-lg;
+        @apply text-2xl text-white font-medium;
+      }
+    }
+  }
+}

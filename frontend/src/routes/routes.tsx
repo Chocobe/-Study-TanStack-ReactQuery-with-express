@@ -1,12 +1,12 @@
-import { RouteObject } from 'react-router';
+import { Navigate, RouteObject } from 'react-router';
 
+import ProtectedPageLayout from '@/layouts/ProtectedPageLayout/ProtectedPageLayout';
 import LoginPage from '@/pages/LoginPage/LoginPage';
 import TodoListPage from '@/pages/TodoListPage/TodoListPage';
 
-import routePathFactory from './routePathFactory';
-import PublicRouteGuard from './guards/PublicRouteGuard';
 import ProtectedRouteGuard from './guards/ProtectedRouteGuard';
-import CommonPageLayout from '@/components/CommonPageLayout/CommonPageLayout';
+import PublicRouteGuard from './guards/PublicRouteGuard';
+import routePathFactory from './routePathFactory';
 
 const routes: RouteObject[] = [
   {
@@ -19,11 +19,10 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    // element: <ProtectedRouteGuard />,
     element: (
-      <CommonPageLayout>
+      <ProtectedPageLayout>
         <ProtectedRouteGuard />
-      </CommonPageLayout>
+      </ProtectedPageLayout>
     ),
     children: [
       {
@@ -31,6 +30,10 @@ const routes: RouteObject[] = [
         element: <TodoListPage />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <Navigate to={routePathFactory.loginPage()} />,
   },
 ];
 
