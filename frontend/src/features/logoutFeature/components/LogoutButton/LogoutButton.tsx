@@ -2,7 +2,7 @@ import './LogoutButton.css';
 
 import { Button } from '@/components/shadcn-ui/button';
 
-import useLogoutButton from '../hooks/useLogoutButton';
+import useLogoutButton from '../../hooks/useLogoutButton';
 
 function LogoutButton() {
   const { onLogout } = useLogoutButton();

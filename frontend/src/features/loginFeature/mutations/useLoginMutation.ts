@@ -17,7 +17,9 @@ const useLoginMutation = () => {
       localStorageApis.token.set(data);
       setAuthInfo(data);
 
-      navigate(routePathFactory.todoListPage());
+      navigate(routePathFactory.todoListPage(), {
+        replace: true,
+      });
     },
   });
 
