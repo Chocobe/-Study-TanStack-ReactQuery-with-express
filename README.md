@@ -35,7 +35,11 @@
 ![Static Badge](https://img.shields.io/badge/vite-v7-brown)
 ![Static Badge](https://img.shields.io/badge/vitest-v3-brown)
 
-![Static Badge](https://img.shields.io/badge/react--hook--form-v7-orange)
+![Static Badge](https://img.shields.io/badge/zustand-v5-olive)
+![Static Badge](https://img.shields.io/badge/@tanstack/react--query-v7-olive)
+![Static Badge](https://img.shields.io/badge/react--hook--form-v7-olive)
+![Static Badge](https://img.shields.io/badge/zod-v4-olive)
+
 ![Static Badge](https://img.shields.io/badge/tailwindcss-v3-purple)
 
 - 서버 상태관리를 위한 TanStack React Query 실습
