@@ -3,23 +3,28 @@ import './TodoItem.css';
 import { Pencil,Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-import { TTodoModel } from '@/apis/todoApis/todoApis.type';
+import { TPatchTodoContentApiRequestParams, TTodoModel } from '@/apis/todoApis/todoApis.type';
 import { Button } from '@/components/shadcn-ui/button';
 import { Input } from '@/components/shadcn-ui/input';
 
 import TodoItemContent from '../TodoItemContent/TodoItemContent';
 
 type TProps = TTodoModel & {
-  onChangeContent: (content: string) => void;
+  onSubmitContent: (params: TPatchTodoContentApiRequestParams) => void;
 };
 
 function TodoItem({ 
   id,
   content,
   completed,
-  onChangeContent,
+  onSubmitContent,
 }: TProps) {
   const [isEditMode, setIsEditMode] = useState(false);
+
+  const _onSubmitContent: typeof onSubmitContent = params => {
+    setIsEditMode(false);
+    onSubmitContent(params);
+  };
 
   return (
     <div className="TodoItem">
@@ -37,7 +42,7 @@ function TodoItem({
           content={content}
           completed={completed}
           isEditMode={isEditMode}
-          onChangeContent={onChangeContent}
+          onSubmit={_onSubmitContent}
         />
       </div>
 

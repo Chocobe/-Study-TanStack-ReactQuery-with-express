@@ -1,20 +1,15 @@
 import './TodoList.css';
 
-import { TTodoModel } from '@/apis/todoApis/todoApis.type';
+import { TPatchTodoContentApiRequestParams, TTodoModel } from '@/apis/todoApis/todoApis.type';
 
 import TodoItem from '../TodoItem/TodoItem';
 
 type TProps = {
   items: TTodoModel[];
+  onSubmitContent: (params: TPatchTodoContentApiRequestParams) => void;
 };
 
-function TodoList({ items }: TProps) {
-  const onChangeContent = (content: string) => {
-    console.group('onChangeContent()');
-    console.log('content: ', content);
-    console.groupEnd();
-  };
-
+function TodoList({ items, onSubmitContent }: TProps) {
   return (
     <div className="TodoList">
       {items.map(item => {
@@ -34,7 +29,7 @@ function TodoList({ items }: TProps) {
             completed={completed}
             created_at={created_at}
             updated_at={updated_at}
-            onChangeContent={onChangeContent}
+            onSubmitContent={onSubmitContent}
           />
         );
       })}

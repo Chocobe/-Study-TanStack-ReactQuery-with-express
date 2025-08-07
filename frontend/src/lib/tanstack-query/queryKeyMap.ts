@@ -1,7 +1,7 @@
 const queryKeyMap = {
   todoApis: {
     getTodos() {
-      return ['todos'];
+      return ['todos'] as const;
     },
   },
 };
