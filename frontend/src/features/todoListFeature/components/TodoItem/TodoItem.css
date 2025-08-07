@@ -1,0 +1,46 @@
+.TodoItem {
+  @apply pt-5;
+  @apply flex justify-between gap-5;
+  @apply border-t;
+
+  &:first-child {
+    @apply pt-0;
+    @apply border-none;
+  }
+
+  .detailsWrapper {
+    @apply flex-1;
+    @apply w-full;
+    @apply flex items-start gap-5;
+
+    .checkbox {
+      @apply flex-shrink-0;
+      @apply my-2;
+      @apply w-4 h-4;
+    }
+
+    .content {
+      @apply flex-1;
+      @apply w-full;
+      @apply leading-8;
+
+      &.completed {
+        @apply text-gray-400 line-through;
+      }
+    }
+  }
+
+  .actionsWrapper {
+    @apply flex-shrink-0;
+    @apply flex items-center gap-2;
+
+    .actionButton.normalize {
+      @apply p-0;
+      @apply w-7 h-7;
+
+      .icon {
+        @apply w-4 h-4;
+      }
+    }
+  }
+}

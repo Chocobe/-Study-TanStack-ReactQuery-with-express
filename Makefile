@@ -6,6 +6,7 @@ dev-compose-up:
 		up
 
 dev-compose-up-with-rebuild-frontend:
+	make dev-compose-down || true && \
 	docker image rm \
 		$$(docker image ls | grep chocobe/todos-dev-frontend | awk '{print $$3}') || true && \
 	make dev-compose-up
