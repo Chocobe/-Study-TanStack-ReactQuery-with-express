@@ -1,3 +1,5 @@
+import { TApiRequestParams } from '../apiClient.type';
+
 export type TTodoModel = {
   id: number;
   content: string;
@@ -6,4 +8,26 @@ export type TTodoModel = {
   updated_at: string;
 };
 
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+//
+// getTodosApi
+//
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 export type TGetTodosApiResponse = TTodoModel[];
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+//
+// patchTodoContentApi
+//
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+export type TPatchTodoContentApiRequestParams = TApiRequestParams<
+  { 
+    id: number;
+  },
+  void,
+  { 
+    content: string;
+  }
+>;
+
+export type TPatchTodoContentApiResponse = TTodoModel;
