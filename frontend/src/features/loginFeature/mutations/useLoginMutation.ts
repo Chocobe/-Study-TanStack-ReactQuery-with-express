@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 
 import { loginApi } from '@/apis/authApis/authApis';
+import localStorageApis from '@/apis/localStorageApis/localStorageApis';
 import routePathFactory from '@/routes/routePathFactory';
 import useAuthStore from '@/stores/authStore/authStore';
 
@@ -13,7 +14,9 @@ const useLoginMutation = () => {
   const loginMutation = useMutation({
     mutationFn: loginApi,
     onSuccess: ({ data }) => {
+      localStorageApis.token.set(data);
       setAuthInfo(data);
+
       navigate(routePathFactory.todoListPage());
     },
   });
