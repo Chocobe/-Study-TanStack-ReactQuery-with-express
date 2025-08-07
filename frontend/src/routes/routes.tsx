@@ -4,11 +4,17 @@ import LoginPage from '@/pages/LoginPage/LoginPage';
 import TodoListPage from '@/pages/TodoListPage/TodoListPage';
 
 import routePathFactory from './routePathFactory';
+import PublicRouteGuard from './guards/PublicRouteGuard';
 
 const routes: RouteObject[] = [
   {
-    path: routePathFactory.loginPage(),
-    element: <LoginPage />,
+    element: <PublicRouteGuard />,
+    children: [
+      {
+        path: routePathFactory.loginPage(),
+        element: <LoginPage />,
+      },
+    ],
   },
   {
     path: routePathFactory.todoListPage(),
