@@ -1,0 +1,12 @@
+.LogoutButton {
+  @apply bg-sky-800;
+
+  &:hover {
+    @apply bg-sky-800;
+    @apply opacity-80;
+  }
+
+  &:active {
+    @apply opacity-90;
+  }
+}

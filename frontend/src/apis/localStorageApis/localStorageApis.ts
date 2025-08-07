@@ -2,7 +2,12 @@ import { localStorageKeyMap, TLocalStorageToken } from './localStorageApis.type'
 
 const localStorageApis = {
   [localStorageKeyMap.AUTH_TOKEN]: {
-    set(token: TLocalStorageToken) {
+    set(token: TLocalStorageToken | null) {
+      if (!token) {
+        localStorage.removeItem(localStorageKeyMap.AUTH_TOKEN);
+        return;
+      }
+
       localStorage.setItem(localStorageKeyMap.AUTH_TOKEN, JSON.stringify(token));
     },
     get() {
