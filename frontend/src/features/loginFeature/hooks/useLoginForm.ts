@@ -1,31 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { loginApi } from '@/apis/authApis/authApis';
-
 import { loginFormSchema } from '../schema/loginFormSchema';
+import useLoginMutation from '../mutations/useLoginMutation';
 
 const useLoginForm = () => {
   const loginForm = useForm({
     resolver: zodResolver(loginFormSchema),
   });
 
-  const onSubmit = loginForm.handleSubmit(async data => {
-    console.group('onSubmit()');
-    console.log('email: ', data.email);
-    console.log('password: ', data.password);
-    console.groupEnd();
+  const { mutate: mutateLogin } = useLoginMutation();
 
-    const response = await loginApi({
-      payload: {
-        email: data.email,
-        password: data.password,
-      },
+  const onSubmit = loginForm.handleSubmit(data => {
+    mutateLogin({
+      payload: data,
     });
-
-    const responseData = response.data;
-
-    console.log('responseData: ', responseData);
   });
 
   return {
