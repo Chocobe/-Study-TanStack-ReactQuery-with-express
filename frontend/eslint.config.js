@@ -32,6 +32,8 @@ export default tseslint.config([
 
       'react-refresh/only-export-components': 'off',
 
+      'no-empty-pattern': 'off',
+
       '@typescript-eslint/no-unused-vars': ['warn', {
         'varsIgnorePattern': '^_',
         'argsIgnorePattern': '^_',
