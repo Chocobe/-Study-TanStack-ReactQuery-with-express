@@ -1,0 +1,28 @@
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+
+import { initialTodoListPageStoreState, TTodoListPageStore } from './todoListPageStore.type';
+
+const useTodoListPageStore = create<TTodoListPageStore>()(devtools((set, _get) => ({
+  state: { ...initialTodoListPageStoreState },
+  actions: {
+    filterActions: {
+      toggleCompleted: () => {
+        set(old => ({
+          ...old,
+          state: {
+            ...old.state,
+            filterState: {
+              ...old.state.filterState,
+              completed: !old.state.filterState.completed,
+            },
+          },
+        }));
+      },
+    },
+  },
+}), {
+  name: 'TodoListPage',
+}));
+
+export default useTodoListPageStore;
