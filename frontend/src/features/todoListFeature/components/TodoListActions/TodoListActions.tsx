@@ -1,14 +1,21 @@
 import './TodoListActions.css';
 
 import { FilePlus } from 'lucide-react';
-import { useState } from 'react';
 
 import { Button } from '@/components/shadcn-ui/button';
 import { Input } from '@/components/shadcn-ui/input';
 
-function TodoListActions() {
-  const [completed, setCompleted] = useState(false);
+type TProps = {
+  completed: boolean;
+  toggleCompleted: () => void;
+  onClickAddButton: () => void;
+};
 
+function TodoListActions({
+  completed,
+  toggleCompleted,
+  onClickAddButton,
+}: TProps) {
   return (
     <div className="TodoListActions">
       <div className="leftSide">
@@ -16,7 +23,7 @@ function TodoListActions() {
           className="checkbox"
           type="checkbox"
           checked={completed}
-          onChange={e => setCompleted(e.target.checked)}
+          onChange={toggleCompleted}
         />
       </div>
 
@@ -24,7 +31,7 @@ function TodoListActions() {
         <Button
           className="addButton normalize"
           variant="default"
-          onClick={() => console.log('addTodoButton()')}
+          onClick={onClickAddButton}
         >
           <FilePlus className="icon" />
           Add
