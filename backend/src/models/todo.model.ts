@@ -1,11 +1,19 @@
 import db from './db';
 import { TUpdateTodoContentParams } from './todo.model.type';
 
-export async function findTodosByUserId(userId: number) {
-  const [rows] = await db.query(
-    'SELECT * FROM todos WHERE user_id = ? ORDER BY created_at DESC',
-    [userId]
-  );
+export async function findTodosByUserId(
+  userId: number, 
+  completed?: boolean
+) {
+  let sql = 'SELECT * FROM todos WHERE user_id = ?';
+  const params: any[] = [userId];
+
+  if (typeof completed === 'boolean') {
+    sql += ' AND completed = ?';
+    params.push(completed ? 1 : 0);
+  }
+
+  const [rows] = await db.query(sql, params);
 
   return rows;
 }
@@ -18,11 +26,6 @@ export async function createTodo(content: string, userId: number) {
     `,
     [content, userId]
   );
-
-  console.group('createTodo()');
-  console.log('result: ', result);
-  console.groupEnd();
-
   const insertId = (result as any).insertId;
 
   const [rows] = await db.query(
@@ -51,7 +54,7 @@ export async function updateTodoContent({
   id,
   content,
 }: TUpdateTodoContentParams) {
-  const [result] = await db.query(
+  const [_result] = await db.query(
     `
       UPDATE todos
       SET content = ?, updated_at = NOW()

@@ -4,13 +4,22 @@ import * as todoModel from '../models/todo.model';
 export async function getTodos(req: Request, res: Response) {
   const userId = req.user?.id;
 
+  const completedRaw = req.query.completed;
+  let completed: boolean | undefined;
+
+  if (completedRaw === 'true') {
+    completed = true;
+  } else if (completedRaw === 'false') {
+    completed = false;
+  }
+
   if (!userId) {
     return res.status(401).json({
       message: 'Unauthorized',
     });
   }
 
-  const todos = await todoModel.findTodosByUserId(userId);
+  const todos = await todoModel.findTodosByUserId(userId, completed);
 
   res.json(todos);
 }
