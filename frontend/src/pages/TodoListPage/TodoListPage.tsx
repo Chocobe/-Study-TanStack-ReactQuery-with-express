@@ -6,16 +6,17 @@ import TodoListActions from '@/features/todoListFeature/components/TodoListActio
 import useAddTodo from '@/features/todoListFeature/hooks/useAddTodo';
 import useTodoListActions from '@/features/todoListFeature/hooks/useTodoListActions';
 import usePatchTodoContentMutation from '@/features/todoListFeature/mutations/usePatchTodoContentMutation';
+import usePostTodoMutation from '@/features/todoListFeature/mutations/usePostTodoMutation';
 import useTodosQuery from '@/features/todoListFeature/queries/useTodosQuery';
 import parseCompletedValue from '@/features/todoListFeature/utils/parseCompletedValue';
 
 function TodoListPage() {
+  const postTodoMutation = usePostTodoMutation();
   const patchTodoContentMutation = usePatchTodoContentMutation();
 
   const {
     isAddMode,
     newContent,
-    onSubmitNewTodo,
     onCancelNewTodo,
   } = useAddTodo();
 
@@ -55,7 +56,7 @@ function TodoListPage() {
             content={newContent}
             created_at=""
             updated_at=""
-            onSubmitNewTodo={onSubmitNewTodo}
+            onSubmitNewTodo={postTodoMutation.mutate}
             onESC={onCancelNewTodo}
           />
         </div>

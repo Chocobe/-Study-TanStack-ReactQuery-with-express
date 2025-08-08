@@ -14,6 +14,7 @@ const usePatchTodoContentMutation = () => {
   const queryClient = useQueryClient();
 
   const filterState = useTodoListPageStore(origin => origin.state.filterState);
+
   const todosQueryParams: TGetTodosApiRequestParams = {
     queryParams: {
       completed: parseCompletedValue(filterState.completed),

@@ -46,4 +46,11 @@ export const postTodoApi = async ({ payload }: TPostTodoApiRequestParams) => {
   );
 
   return response.data;
+
+  // NOTE: error test
+  // return new Promise((_, rej) => {
+  //   setTimeout(() => {
+  //     rej({ message: '롤백 테스트 메시지'});
+  //   }, 1_000);
+  // });
 };

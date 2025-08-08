@@ -1,0 +1,73 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { postTodoApi } from '@/apis/todoApis/todoApis';
+import { TGetTodosApiRequestParams, TGetTodosApiResponse, TTodoModel } from '@/apis/todoApis/todoApis.type';
+import queryKeyMap from '@/lib/tanstack-query/queryKeyMap';
+import useTodoListPageStore from '@/stores/todoListPageStore/todoListPageStore';
+
+import parseCompletedValue from '../utils/parseCompletedValue';
+
+const usePostTodoMutation = () => {
+  const queryClient = useQueryClient();
+
+  const todosQueryParams: TGetTodosApiRequestParams = {
+    queryParams: {
+      completed: parseCompletedValue('전체'),
+    },
+  };
+
+  const filterActions = useTodoListPageStore(origin => origin.actions.filterActions);
+  const setIsAddMode = useTodoListPageStore(origin => origin.actions.setIsAddMode);
+
+  const postTodoMutation = useMutation({
+    mutationKey: queryKeyMap.todoApis.getTodos(todosQueryParams),
+    mutationFn: postTodoApi,
+    onMutate: async params => {
+      await queryClient.cancelQueries({
+        queryKey: queryKeyMap.todoApis.getTodos(todosQueryParams),
+      });
+
+      const previousTodos = queryClient.getQueryData<TGetTodosApiResponse>(queryKeyMap.todoApis.getTodos(todosQueryParams));
+
+      queryClient.setQueryData<TGetTodosApiResponse>(
+        queryKeyMap.todoApis.getTodos(todosQueryParams),
+        old => {
+          const newTodo: TTodoModel = {
+            id: 0,
+            content: params.payload.content,
+            completed: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          };
+
+          return [
+            newTodo,
+            ...(old ?? []),
+          ];
+        }
+      );
+
+      return { previousTodos };
+    },
+    onError: (_error, _params, context) => {
+      queryClient.setQueryData(
+        queryKeyMap.todoApis.getTodos(todosQueryParams),
+        context?.previousTodos
+      );
+    },
+    onSettled: (_, error) => {
+      if (!error) {
+        filterActions.setCompleted('전체');
+        setIsAddMode(false);
+
+        return queryClient.invalidateQueries({
+          queryKey: queryKeyMap.todoApis.getTodos(todosQueryParams),
+        });
+      }
+    },
+  });
+
+  return postTodoMutation;
+};
+
+export default usePostTodoMutation;
