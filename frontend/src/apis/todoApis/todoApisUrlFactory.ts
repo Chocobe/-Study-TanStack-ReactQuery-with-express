@@ -9,8 +9,12 @@ const todoApisUrlFactory = (() => {
       return `${BASE_PATH}` as const;
     },
 
-    patchTodoContent({ id }: TPatchTodoContentApiRequestParams['pathParams']) {
+    patchTodoContentUrl({ id }: TPatchTodoContentApiRequestParams['pathParams']) {
       return `${BASE_PATH}/${id}` as const;
+    },
+
+    postTodoUrl() {
+      return this.getTodosApiUrl();
     },
   };
 })();

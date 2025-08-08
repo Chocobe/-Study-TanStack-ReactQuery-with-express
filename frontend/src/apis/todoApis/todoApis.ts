@@ -4,6 +4,8 @@ import {
   TGetTodosApiResponse,
   TPatchTodoContentApiRequestParams,
   TPatchTodoContentApiResponse,
+  TPostTodoApiRequestParams,
+  TPostTodoApiResponse,
 } from './todoApis.type';
 import todoApisUrlFactory from './todoApisUrlFactory';
 
@@ -23,7 +25,7 @@ export const patchTodoContentApi = async ({
   payload,
 }: TPatchTodoContentApiRequestParams) => {
   const response = await apiClient.patch<TPatchTodoContentApiResponse>(
-    todoApisUrlFactory.patchTodoContent(pathParams),
+    todoApisUrlFactory.patchTodoContentUrl(pathParams),
     payload
   );
 
@@ -35,4 +37,13 @@ export const patchTodoContentApi = async ({
   //     rej({ message: '롤백 테스트 메시지'});
   //   }, 1_000);
   // });
+};
+
+export const postTodoApi = async ({ payload }: TPostTodoApiRequestParams) => {
+  const response = await apiClient.post<TPostTodoApiResponse>(
+    todoApisUrlFactory.postTodoUrl(),
+    payload
+  );
+
+  return response.data;
 };

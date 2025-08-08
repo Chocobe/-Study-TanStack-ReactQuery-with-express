@@ -20,6 +20,16 @@ const useTodoListPageStore = create<TTodoListPageStore>()(devtools((set, _get) =
         }));
       },
     },
+
+    setIsAddMode: isAddMode => {
+      set(old => ({
+        ...old,
+        state: {
+          ...old.state,
+          isAddMode,
+        },
+      }));
+    },
   },
 }), {
   name: 'TodoListPage',

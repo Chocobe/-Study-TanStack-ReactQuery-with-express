@@ -4,8 +4,11 @@ const useTodoListActions = () => {
   const filterState = useTodoListPageStore(origin => origin.state.filterState);
   const filterActions = useTodoListPageStore(origin => origin.actions.filterActions);
 
+  const isAddMode = useTodoListPageStore(origin => origin.state.isAddMode);
+  const setIsAddMode = useTodoListPageStore(origin => origin.actions.setIsAddMode);
+
   const onClickAddButton = () => {
-    console.log('onClickAddButton()');
+    setIsAddMode(!isAddMode);
   };
 
   return {

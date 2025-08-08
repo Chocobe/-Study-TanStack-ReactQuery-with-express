@@ -3,27 +3,59 @@ import './TodoItem.css';
 import { Pencil,Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-import { TPatchTodoContentApiRequestParams, TTodoModel } from '@/apis/todoApis/todoApis.type';
+import { TPatchTodoContentApiRequestParams, TPostTodoApiRequestParams, TTodoModel } from '@/apis/todoApis/todoApis.type';
 import { Button } from '@/components/shadcn-ui/button';
 import { Input } from '@/components/shadcn-ui/input';
 
 import TodoItemContent from '../TodoItemContent/TodoItemContent';
 
-type TProps = TTodoModel & {
-  onSubmitContent: (params: TPatchTodoContentApiRequestParams) => void;
-};
+type TProps = 
+  & Omit<TTodoModel, 'id'> 
+  & Partial<Pick<TTodoModel, 'id'>>
+  & {
+    isAddMode?: boolean;
+    onSubmitContent?: (params: TPatchTodoContentApiRequestParams) => void;
+    onSubmitNewTodo?: (params: TPostTodoApiRequestParams) => void;
+    onESC?: () => void;
+  };
 
 function TodoItem({ 
   id,
   content,
   completed,
+  isAddMode = false,
   onSubmitContent,
+  onSubmitNewTodo,
+  onESC,
 }: TProps) {
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const _onSubmitContent: typeof onSubmitContent = params => {
+  const patchTodoContent: typeof onSubmitContent = params => {
     setIsEditMode(false);
-    onSubmitContent(params);
+    onSubmitContent?.(params);
+  };
+
+  const postNewTodo: typeof onSubmitNewTodo = params => {
+    onSubmitNewTodo?.(params);
+  };
+
+  const onEnter = (content: string) => {
+    if (isAddMode) {
+      postNewTodo({
+        payload: {
+          content,
+        },
+      });
+    } else if (isEditMode && id) {
+      patchTodoContent({
+        pathParams: {
+          id,
+        },
+        payload: {
+          content,
+        },
+      });
+    }
   };
 
   return (
@@ -33,6 +65,7 @@ function TodoItem({
           id={String(id)}
           className="checkbox"
           type="checkbox"
+          disabled={isAddMode}
           checked={completed}
           onChange={e => console.log('onChange() - checked: ', e.target.checked)}
         />
@@ -41,28 +74,31 @@ function TodoItem({
           id={id}
           content={content}
           completed={completed}
-          isEditMode={isEditMode}
-          onSubmit={_onSubmitContent}
+          isEditMode={isEditMode || isAddMode}
+          onEnter={onEnter}
+          onESC={onESC}
         />
       </div>
 
-      <div className="actionsWrapper">
-        <Button
-          className="actionButton normalize"
-          variant="destructive"
-          onClick={() => console.log('onDelete()')}
-        >
-          <Trash2 className="icon" />
-        </Button>
+      {!isAddMode && (
+        <div className="actionsWrapper">
+          <Button
+            className="actionButton normalize"
+            variant="destructive"
+            onClick={() => console.log('onDelete()')}
+          >
+            <Trash2 className="icon" />
+          </Button>
 
-        <Button
-          className="actionButton normalize"
-          variant="outline"
-          onClick={() => setIsEditMode(isEditMode => !isEditMode)}
-        >
-          <Pencil className="icon" />
-        </Button>
-      </div>
+          <Button
+            className="actionButton normalize"
+            variant="outline"
+            onClick={() => setIsEditMode(isEditMode => !isEditMode)}
+          >
+            <Pencil className="icon" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

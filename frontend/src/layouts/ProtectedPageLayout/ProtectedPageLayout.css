@@ -20,7 +20,7 @@
     @apply flex-1;
     @apply w-full h-full;
     @apply flex flex-col;
-    @apply overflow-auto;
+    @apply overflow-y-scroll overflow-x-auto;
 
     .content {
       @apply flex-1;

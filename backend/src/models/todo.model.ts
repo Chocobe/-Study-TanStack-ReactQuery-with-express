@@ -13,6 +13,8 @@ export async function findTodosByUserId(
     params.push(completed ? 1 : 0);
   }
 
+  sql += ' ORDER BY created_at DESC';
+
   const [rows] = await db.query(sql, params);
 
   return rows;

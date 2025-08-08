@@ -1,4 +1,13 @@
 .TodoListPage {
   @apply mt-5;
   @apply flex flex-col;
+
+  .newTodoWrapper {
+    @apply py-5;
+    @apply border-b;
+
+    .label {
+      @apply text-gray-500 text-sm font-medium;
+    }
+  }
 }

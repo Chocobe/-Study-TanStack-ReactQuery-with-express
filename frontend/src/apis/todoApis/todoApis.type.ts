@@ -38,3 +38,14 @@ export type TPatchTodoContentApiRequestParams = TApiRequestParams<
 >;
 
 export type TPatchTodoContentApiResponse = TTodoModel;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+//
+// postTodoApi
+//
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+export type TPostTodoApiRequestParams = TApiRequestParams<void, void, {
+  content: string;
+}>;
+
+export type TPostTodoApiResponse = TTodoModel;

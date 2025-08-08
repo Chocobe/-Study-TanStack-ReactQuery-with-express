@@ -7,16 +7,16 @@ import {
   useState,
 } from 'react';
 
-import { TPatchTodoContentApiRequestParams } from '@/apis/todoApis/todoApis.type';
 import { Input } from '@/components/shadcn-ui/input';
 import { cn } from '@/lib/shadcn-ui/utils';
 
 type TProps = {
-  id: number;
+  id?: number;
   content: string;
   completed: boolean;
   isEditMode: boolean;
-  onSubmit: (params: TPatchTodoContentApiRequestParams) => void;
+  onEnter: (content: string) => void;
+  onESC?: () => void;
 };
 
 function TodoItemContent({ 
@@ -24,24 +24,26 @@ function TodoItemContent({
   content,
   completed,
   isEditMode,
-  onSubmit,
+  onEnter,
+  onESC,
 }: TProps) {
   const $inputRef = useRef<HTMLInputElement | null>(null);
 
   const [tempContent, setTempContent] = useState(content);
 
-  const _onSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
 
-    if (key.toLowerCase() === 'enter') {
-      onSubmit({
-        pathParams: {
-          id,
-        },
-        payload: {
-          content: tempContent,
-        },
-      });
+    switch(key.toLowerCase()) {
+      case 'enter': {
+        onEnter(tempContent);
+        return;
+      }
+
+      case 'escape': {
+        onESC?.();
+        return;
+      }
     }
   };
 
@@ -67,7 +69,7 @@ function TodoItemContent({
         className="TodoItemContent input"
         value={tempContent}
         onChange={e => setTempContent(e.target.value)}
-        onKeyUp={_onSubmit}
+        onKeyUp={onKeyUp}
       />
     ): (
       <label
