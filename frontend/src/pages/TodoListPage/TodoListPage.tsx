@@ -5,12 +5,9 @@ import TodoListActions from '@/features/todoListFeature/components/TodoListActio
 import useTodoListActions from '@/features/todoListFeature/hooks/useTodoListActions';
 import usePatchTodoContentMutation from '@/features/todoListFeature/mutations/usePatchTodoContentMutation';
 import useTodosQuery from '@/features/todoListFeature/queries/useTodosQuery';
+import parseCompletedValue from '@/features/todoListFeature/utils/parseCompletedValue';
 
 function TodoListPage() {
-  const {
-    data = [],
-  } = useTodosQuery();
-
   const patchTodoContentMutation = usePatchTodoContentMutation();
 
   const {
@@ -19,11 +16,19 @@ function TodoListPage() {
     onClickAddButton,
   } = useTodoListActions();
 
+  const {
+    data = [],
+  } = useTodosQuery({
+    queryParams: {
+      completed: parseCompletedValue(filterState.completed),
+    },
+  });
+
   return (
     <div className="TodoListPage">
       <TodoListActions
         completed={filterState.completed}
-        toggleCompleted={filterActions.toggleCompleted}
+        setCompleted={filterActions.setCompleted}
         onClickAddButton={onClickAddButton}
       />
 

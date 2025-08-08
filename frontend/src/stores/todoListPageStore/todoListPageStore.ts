@@ -7,14 +7,14 @@ const useTodoListPageStore = create<TTodoListPageStore>()(devtools((set, _get) =
   state: { ...initialTodoListPageStoreState },
   actions: {
     filterActions: {
-      toggleCompleted: () => {
+      setCompleted: completed => {
         set(old => ({
           ...old,
           state: {
             ...old.state,
             filterState: {
               ...old.state.filterState,
-              completed: !old.state.filterState.completed,
+              completed,
             },
           },
         }));

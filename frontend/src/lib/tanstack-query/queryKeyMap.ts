@@ -1,7 +1,9 @@
+import { TGetTodosApiRequestParams } from '@/apis/todoApis/todoApis.type';
+
 const queryKeyMap = {
   todoApis: {
-    getTodos() {
-      return ['todos'] as const;
+    getTodos(params: TGetTodosApiRequestParams) {
+      return ['todos', params];
     },
   },
 };

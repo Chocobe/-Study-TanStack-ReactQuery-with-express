@@ -1,12 +1,12 @@
 type TTodoListPageStoreState = {
   filterState: {
-    completed: boolean;
+    completed: '전체' | '완료' | '미완료';
   };
 };
 
 type TTodoListPageStoreActions = {
   filterActions: {
-    toggleCompleted: () => void;
+    setCompleted: (completed: TTodoListPageStoreState['filterState']['completed']) => void;
   };
 };
 
@@ -17,6 +17,6 @@ export type TTodoListPageStore = {
 
 export const initialTodoListPageStoreState: TTodoListPageStoreState = {
   filterState: {
-    completed: false,
+    completed: '전체',
   },
 } as const;

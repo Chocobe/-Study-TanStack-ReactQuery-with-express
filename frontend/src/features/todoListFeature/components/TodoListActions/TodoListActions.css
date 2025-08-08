@@ -5,8 +5,8 @@
   .leftSide {
     /*  */
 
-    .checkbox {
-      @apply w-4 h-4;
+    .select {
+      @apply w-[100px];
     }
   }
 

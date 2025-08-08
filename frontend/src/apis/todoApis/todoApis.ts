@@ -1,14 +1,18 @@
 import apiClient from '../apiClient';
 import {
+  TGetTodosApiRequestParams,
   TGetTodosApiResponse,
   TPatchTodoContentApiRequestParams,
   TPatchTodoContentApiResponse,
 } from './todoApis.type';
 import todoApisUrlFactory from './todoApisUrlFactory';
 
-export const getTodosApi = async () => {
+export const getTodosApi = async ({ queryParams }: TGetTodosApiRequestParams) => {
   const response = await apiClient.get<TGetTodosApiResponse>(
-    todoApisUrlFactory.getTodosApiUrl()
+    todoApisUrlFactory.getTodosApiUrl(),
+    {
+      params: queryParams,
+    }
   );
 
   return response.data;

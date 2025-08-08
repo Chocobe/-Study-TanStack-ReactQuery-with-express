@@ -13,6 +13,13 @@ export type TTodoModel = {
 // getTodosApi
 //
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+export type TGetTodosApiRequestParams = TApiRequestParams<
+  void,
+  {
+    completed?: boolean;
+  }
+>;
+
 export type TGetTodosApiResponse = TTodoModel[];
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
