@@ -1,0 +1,33 @@
+.TodoListActions {
+  @apply py-4;
+  @apply flex justify-between gap-5;
+
+  .leftSide {
+    /*  */
+
+    .checkbox {
+      @apply w-4 h-4;
+    }
+  }
+
+  .rightSide {
+    /*  */
+
+    .addButton.normalize {
+      @apply !w-fit;
+      @apply bg-sky-800;
+
+      &:hover {
+        @apply opacity-80;
+      }
+
+      &:active {
+        @apply opacity-90;
+      }
+
+      .icon {
+        @apply w-4 h-4;
+      }
+    }
+  }
+}
