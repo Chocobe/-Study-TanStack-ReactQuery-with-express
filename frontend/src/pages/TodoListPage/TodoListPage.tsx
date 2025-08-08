@@ -36,6 +36,7 @@ function TodoListPage() {
   return (
     <div className="TodoListPage">
       <TodoListActions
+        isAddMode={isAddMode}
         completed={filterState.completed}
         setCompleted={filterActions.setCompleted}
         onClickAddButton={onClickAddButton}

@@ -1,6 +1,6 @@
 import './TodoListActions.css';
 
-import { FilePlus } from 'lucide-react';
+import { FilePlus, XCircle } from 'lucide-react';
 
 import { Button } from '@/components/shadcn-ui/button';
 import { 
@@ -13,12 +13,14 @@ import {
 import { TTodoListPageStore } from '@/stores/todoListPageStore/todoListPageStore.type';
 
 type TProps = {
+  isAddMode: boolean;
   completed: TTodoListPageStore['state']['filterState']['completed'];
   setCompleted: (completed: TTodoListPageStore['state']['filterState']['completed']) => void;
   onClickAddButton: () => void;
 };
 
 function TodoListActions({
+  isAddMode,
   completed,
   setCompleted,
   onClickAddButton,
@@ -52,8 +54,12 @@ function TodoListActions({
           variant="default"
           onClick={onClickAddButton}
         >
-          <FilePlus className="icon" />
-          Add
+          {isAddMode
+            ? <XCircle className="icon" />
+            : <FilePlus className="icon" />
+          }
+
+          {isAddMode ? 'Cancel' : 'Add'}
         </Button>
       </div>
     </div>
