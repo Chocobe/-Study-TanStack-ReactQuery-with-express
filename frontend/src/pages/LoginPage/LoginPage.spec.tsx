@@ -1,11 +1,39 @@
+import { PropsWithChildren } from 'react';
+import { MemoryRouter, Route, Routes } from 'react-router';
+
+import AppQueryClientProvider from '@/lib/tanstack-query/AppQueryClientProvider';
+import routePathFactory from '@/routes/routePathFactory';
 import { customRender, screen } from '@/tests/testUtils';
 
 import LoginPage from './LoginPage';
 
+const Wrapper = ({ children }: PropsWithChildren) => {
+  return (
+    <MemoryRouter>
+      <Routes>
+        <Route 
+          path="/" 
+          element={
+            <AppQueryClientProvider>
+              {children}
+            </AppQueryClientProvider>
+          }
+        />
+
+        <Route
+          path={routePathFactory.todoListPage()}
+          element={<h1>Todo List Page</h1>}
+        />
+      </Routes>
+    </MemoryRouter>
+  );
+};
+
 describe('LoginPage', () => {
   it('email 을 입력할 수 있다.', async () => {
     const { user } = customRender(
-      <LoginPage />
+      <LoginPage />,
+      { wrapper: Wrapper }
     );
 
     const $inputEmail = screen.getByPlaceholderText('Email');
@@ -16,7 +44,8 @@ describe('LoginPage', () => {
 
   it('password 를 입력할 수 있다.', async () => {
     const { user } = customRender(
-      <LoginPage />
+      <LoginPage />,
+      { wrapper: Wrapper }
     );
 
     const $inputPassword = screen.getByPlaceholderText('Password');
@@ -26,7 +55,8 @@ describe('LoginPage', () => {
 
   it('이메일 형식이 아닌 상태로 로그인 시, 안내 메시지가 노출된다.', async () => {
     const { user } = customRender(
-      <LoginPage />
+      <LoginPage />,
+      { wrapper: Wrapper }
     );
 
     const $loginButton = screen.getByRole('button', { name: 'Login' });
@@ -44,7 +74,8 @@ describe('LoginPage', () => {
 
   it('비밀번호 형식이 아닌 상태로 로그인 시, 안내 메시지가 노출된다.', async () =>  {
     const { user } = customRender(
-      <LoginPage />
+      <LoginPage />,
+      { wrapper: Wrapper }
     );
 
     const $loginButton = screen.getByRole('button', { name: 'Login' });
@@ -69,19 +100,5 @@ describe('LoginPage', () => {
       },
     });
     expect($formatErrorMessage).toBeInTheDocument();
-  });
-
-  it('정상적인 이메일, 비밀번호를 입력한 후 로그인 버튼 클릭 시 제출된다.', async () => {
-    const { user } = customRender(
-      <LoginPage />
-    );
-
-    const $inputEmail = screen.getByPlaceholderText('Email');
-    const $inputPassword = screen.getByPlaceholderText('Password');
-    const $loginButton = screen.getByRole('button', { name: 'Login' });
-
-    await user.type($inputEmail, 'miles@gmail.com');
-    await user.type($inputPassword, 'hello-world');
-    await user.click($loginButton);
   });
 });

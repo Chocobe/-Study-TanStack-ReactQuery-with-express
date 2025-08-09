@@ -18,14 +18,12 @@ function LoginForm({ register, formState }: TProps) {
       type: 'text',
       autoFocus: true,
       placeholder: 'Email',
-      defaultValue: 'miles@gmail.com',
     },
     {
       id: 'password' as keyof TLoginFormSchema,
       type: 'password',
       autoFocus: false,
       placeholder: 'Password',
-      defaultValue: 'hello-world',
     },
   ];
 
@@ -34,7 +32,7 @@ function LoginForm({ register, formState }: TProps) {
       className="LoginForm"
       onSubmit={e => e.preventDefault()}
     >
-      {items.map(({ id, type, autoFocus, placeholder, defaultValue }) => (
+      {items.map(({ id, type, autoFocus, placeholder }) => (
         <div
           className="item"
           key={id}
@@ -46,7 +44,6 @@ function LoginForm({ register, formState }: TProps) {
             autoFocus={autoFocus}
             autoComplete="off"
             placeholder={placeholder}
-            defaultValue={defaultValue}
           />
 
           {formState.errors?.[id] && (
