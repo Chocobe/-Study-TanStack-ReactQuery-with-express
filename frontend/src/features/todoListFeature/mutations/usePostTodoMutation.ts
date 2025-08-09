@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 import { postTodoApi } from '@/apis/todoApis/todoApis';
 import { TGetTodosApiRequestParams, TGetTodosApiResponse, TTodoModel } from '@/apis/todoApis/todoApis.type';
@@ -50,6 +51,8 @@ const usePostTodoMutation = () => {
       return { previousTodos };
     },
     onError: (_error, _params, context) => {
+      toast.error('에러가 발생하여 할 일을 등록하지 못하였습니다.');
+
       queryClient.setQueryData(
         queryKeyMap.todoApis.getTodos(todosQueryParams),
         context?.previousTodos
@@ -59,6 +62,8 @@ const usePostTodoMutation = () => {
       if (!error) {
         filterActions.setCompleted('전체');
         setIsAddMode(false);
+
+        toast.success('새로운 할 일을 등록하였습니다.');
 
         return queryClient.invalidateQueries({
           queryKey: queryKeyMap.todoApis.getTodos(todosQueryParams),

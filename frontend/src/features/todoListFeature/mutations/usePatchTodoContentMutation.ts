@@ -2,6 +2,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 import { patchTodoContentApi } from '@/apis/todoApis/todoApis';
 import { TGetTodosApiRequestParams, TGetTodosApiResponse } from '@/apis/todoApis/todoApis.type';
@@ -45,10 +46,17 @@ const usePatchTodoContentMutation = () => {
       return { previousTodos };
     },
     onError: (_error, _params, context) => {
-      queryClient.setQueryData(queryKeyMap.todoApis.getTodos(todosQueryParams), context?.previousTodos);
+      toast.error('에러가 발생하여 할 일을 수정하지 못하였습니다.');
+
+      queryClient.setQueryData(
+        queryKeyMap.todoApis.getTodos(todosQueryParams), 
+        context?.previousTodos
+      );
     },
     onSettled: (_, error) => {
       if (!error) {
+        toast.success('할 일을 수정하였습니다.');
+
         return queryClient.invalidateQueries({
           queryKey: queryKeyMap.todoApis.getTodos(todosQueryParams),
         });

@@ -1,4 +1,5 @@
 import { useMutation,useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 import { deleteTodoApi } from '@/apis/todoApis/todoApis';
 import { TGetTodosApiRequestParams, TGetTodosApiResponse } from '@/apis/todoApis/todoApis.type';
@@ -38,6 +39,8 @@ const useDeleteTodoMutation = () => {
       return { previousTodos };
     },
     onError: (error, _, context) => {
+      toast.error('에러가 발생하여 삭제하지 못하였습니다.');
+
       queryClient.setQueryData(
         queryKeyMap.todoApis.getTodos(todosQueryParams),
         context?.previousTodos
@@ -45,6 +48,8 @@ const useDeleteTodoMutation = () => {
     },
     onSettled: (_, error) => {
       if (!error) {
+        toast.success('삭제 되었습니다.');
+
         return queryClient.invalidateQueries({
           queryKey: queryKeyMap.todoApis.getTodos(todosQueryParams),
         });
