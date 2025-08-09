@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  frontend-ci:
+  push-to-main:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -32,7 +32,7 @@ jobs:
         working-directory: frontend
         run: |-
           pnpm install && \
-          echo "🌥️ Completed install dependencies"
+          echo "🌥️ Installed dependencies"
       - name: Check lint
         working-directory: frontend
         run: |-
@@ -48,3 +48,16 @@ jobs:
         run: |-
           pnpm test && \
           echo "☀️ Passed the tests"
+
+      # backend
+      - name: Install backend dependencies
+        working-directory: backend
+        run: |-
+          pnpm install && \
+          echo "⛅️ Installed dependencies"
+
+      - name: Check type
+        working-directory: backend
+        run: |-
+          pnpm tsc && \
+          echo "☀️ Passed the type check"
