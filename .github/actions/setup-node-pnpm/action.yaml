@@ -1,0 +1,29 @@
+name: Setup Node.js, pnpm
+
+description: Setup Node.js and pnpm with cache
+
+inputs:
+  node-version:
+    required: true
+    description: 'Node version (default: v20)'
+  pnpm-version:
+    required: true
+    description: 'pnpm version (default: v10)'
+  cache-dependency-path:
+    required: true
+    description: 'paths of pnpm-lock.yaml'
+
+runs:
+  using: composite
+  steps:
+    - name: Install pnpm v${{ inputs.pnpm-version }}
+      uses: pnpm/action-setup@v4
+      with:
+        version: ${{ inputs.pnpm-version }}
+
+    - name: Install Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: pnpm
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
