@@ -10,6 +10,12 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   config => {
     config.headers.Authorization = 'hello-world';
+
+    // NOTE: GET 이외의 API 요청 시, 렌덤 에러 발생
+    if (config.method?.toLowerCase() !== 'get' && Math.random() < 0.2) {
+      throw new Error('테스트용 에러 발생');
+    }
+
     return config;
   }
 );
