@@ -1,29 +1,27 @@
-name: Main CI
+name: Main branch CI
 
 on:
   push:
     branches:
       - main
 
+env:
+  node-version: 20
+  pnpm-version: 10
+  frontend-cache-dependency-path: frontend/pnpm-lock.yaml
+  backend-cache-dependency-path: backend/pnpm-lock.yaml
+
 jobs:
-  push-to-main:
+  frontend-ci:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20]
-        pnpm-version: [10]
     steps:
-      # common steps
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node-pnpm
         with:
-          node-version: ${{ matrix.node-version }}
-          pnpm-version: ${{ matrix.pnpm-version }}
-          cache-dependency-path: |-
-            frontend/pnpm-lock.yaml
-            backend/pnpm-lock.yaml
+          node-version: ${{ env.node-version }}
+          pnpm-version: ${{ env.pnpm-version }}
+          cache-dependency-path: ${{ env.frontend-cache-dependency-path }}
 
-      # frontend
       - name: Install frontend dependencies
         working-directory: frontend
         run: |-
@@ -45,7 +43,15 @@ jobs:
           pnpm test && \
           echo "☀️ Passed the tests"
 
-      # backend
+  backend-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-pnpm
+        with:
+          node-version: ${{ env.node-version }}
+          pnpm-version: ${{ env.pnpm-version }}
+          cache-dependency-path: ${{ env.backend-cache-dependency-path }}
       - name: Install backend dependencies
         working-directory: backend
         run: |-
