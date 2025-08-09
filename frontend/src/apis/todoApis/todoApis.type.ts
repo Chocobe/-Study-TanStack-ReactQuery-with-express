@@ -41,6 +41,19 @@ export type TPatchTodoContentApiResponse = TTodoModel;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 //
+// toggleTodoCompletedApi
+//
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+export type TToggleTodoCompletedApiRequestParams = TApiRequestParams<
+  {
+    id: number;
+  }
+>;
+
+export type TToggleTodoCompletedApiResponse = TTodoModel;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+//
 // postTodoApi
 //
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

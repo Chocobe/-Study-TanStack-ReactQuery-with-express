@@ -1,5 +1,6 @@
 import './TodoListPage.css';
 
+import { toggleTodoCompletedApi } from '@/apis/todoApis/todoApis';
 import TodoItem from '@/features/todoListFeature/components/TodoItem/TodoItem';
 import TodoList from '@/features/todoListFeature/components/TodoList/TodoList';
 import TodoListActions from '@/features/todoListFeature/components/TodoListActions/TodoListActions';
@@ -65,6 +66,7 @@ function TodoListPage() {
       <TodoList
         items={data}
         onSubmitContent={patchTodoContentMutation.mutate}
+        onToggleCompleted={toggleTodoCompletedApi}
       />
     </div>
   );

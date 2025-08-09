@@ -3,7 +3,12 @@ import './TodoItem.css';
 import { Pencil,Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-import { TPatchTodoContentApiRequestParams, TPostTodoApiRequestParams, TTodoModel } from '@/apis/todoApis/todoApis.type';
+import { 
+  TPatchTodoContentApiRequestParams,
+  TPostTodoApiRequestParams,
+  TTodoModel,
+  TToggleTodoCompletedApiRequestParams,
+} from '@/apis/todoApis/todoApis.type';
 import { Button } from '@/components/shadcn-ui/button';
 import { Input } from '@/components/shadcn-ui/input';
 
@@ -16,6 +21,7 @@ type TProps =
     isAddMode?: boolean;
     onSubmitContent?: (params: TPatchTodoContentApiRequestParams) => void;
     onSubmitNewTodo?: (params: TPostTodoApiRequestParams) => void;
+    onToggleCompleted?: (params: TToggleTodoCompletedApiRequestParams) => void;
     onESC?: () => void;
   };
 
@@ -26,6 +32,7 @@ function TodoItem({
   isAddMode = false,
   onSubmitContent,
   onSubmitNewTodo,
+  onToggleCompleted,
   onESC,
 }: TProps) {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -58,6 +65,18 @@ function TodoItem({
     }
   };
 
+  const onClickCheckbox = () => {
+    if (!id || !onToggleCompleted) {
+      return;
+    }
+
+    onToggleCompleted({
+      pathParams: {
+        id,
+      },
+    });
+  };
+
   return (
     <div className="TodoItem">
       <div className="detailsWrapper">
@@ -67,7 +86,7 @@ function TodoItem({
           type="checkbox"
           disabled={isAddMode}
           checked={completed}
-          onChange={e => console.log('onChange() - checked: ', e.target.checked)}
+          onChange={onClickCheckbox}
         />
 
         <TodoItemContent
