@@ -142,7 +142,7 @@ curl \
 
 
 
-## 02-05. 하 일 삭제
+## 02-05. 할 일 삭제
 
 - Method : `DELETE`
 - URL : `/api/v1/todo/:id`

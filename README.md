@@ -16,8 +16,9 @@
 ```
 
 - Package manager : `pnpm`
-- Server framework : `Express`
-- Client library : `React` + `Vite`
+- Client : `React` + `Vite`
+- Server : `Express`
+- Database : `MySQL`
 - 실행 환경 : `Docker Engine`
 
 <br />
@@ -49,6 +50,7 @@
   - UI 상태관리 : `zustand`
   - 서버 상태관리 : `@tanstack/react-query`
   - 입력 Form 상태관리 : `react-hook-form`
+- `GET` 이외의 API 요청 시, 20% 확률로 실패합니다. (axios request interceptor)
 
 <br />
 
