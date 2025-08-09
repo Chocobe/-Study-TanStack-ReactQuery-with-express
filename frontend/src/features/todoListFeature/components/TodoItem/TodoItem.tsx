@@ -4,6 +4,7 @@ import { Pencil,Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 import { 
+  TDeleteTodoApiRequestParams,
   TPatchTodoContentApiRequestParams,
   TPostTodoApiRequestParams,
   TTodoModel,
@@ -22,6 +23,7 @@ type TProps =
     onSubmitContent?: (params: TPatchTodoContentApiRequestParams) => void;
     onSubmitNewTodo?: (params: TPostTodoApiRequestParams) => void;
     onToggleCompleted?: (params: TToggleTodoCompletedApiRequestParams) => void;
+    onDelete?: (params: TDeleteTodoApiRequestParams) => void;
     onESC?: () => void;
   };
 
@@ -33,6 +35,7 @@ function TodoItem({
   onSubmitContent,
   onSubmitNewTodo,
   onToggleCompleted,
+  onDelete,
   onESC,
 }: TProps) {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -77,6 +80,18 @@ function TodoItem({
     });
   };
 
+  const onClickDeleteButton = () => {
+    if (!id) {
+      return;
+    }
+
+    onDelete?.({
+      pathParams: {
+        id,
+      },
+    });
+  };
+
   return (
     <div className="TodoItem">
       <div className="detailsWrapper">
@@ -104,7 +119,7 @@ function TodoItem({
           <Button
             className="actionButton normalize"
             variant="destructive"
-            onClick={() => console.log('onDelete()')}
+            onClick={onClickDeleteButton}
           >
             <Trash2 className="icon" />
           </Button>

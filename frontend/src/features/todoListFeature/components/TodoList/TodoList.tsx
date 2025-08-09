@@ -1,6 +1,7 @@
 import './TodoList.css';
 
 import { 
+  TDeleteTodoApiRequestParams,
   TPatchTodoContentApiRequestParams,
   TTodoModel,
   TToggleTodoCompletedApiRequestParams,
@@ -12,9 +13,10 @@ type TProps = {
   items: TTodoModel[];
   onSubmitContent: (params: TPatchTodoContentApiRequestParams) => void;
   onToggleCompleted?: (params: TToggleTodoCompletedApiRequestParams) => void;
+  onDelete?: (params: TDeleteTodoApiRequestParams) => void;
 };
 
-function TodoList({ items, onSubmitContent, onToggleCompleted }: TProps) {
+function TodoList({ items, onSubmitContent, onToggleCompleted, onDelete }: TProps) {
   return (
     <div className="TodoList">
       {items.map(item => {
@@ -36,6 +38,7 @@ function TodoList({ items, onSubmitContent, onToggleCompleted }: TProps) {
             updated_at={updated_at}
             onSubmitContent={onSubmitContent}
             onToggleCompleted={onToggleCompleted}
+            onDelete={onDelete}
           />
         );
       })}

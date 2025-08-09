@@ -1,5 +1,7 @@
 import apiClient from '../apiClient';
 import {
+  TDeleteTodoApiRequestParams,
+  TDeleteTodoApiResponse,
   TGetTodosApiRequestParams,
   TGetTodosApiResponse,
   TPatchTodoContentApiRequestParams,
@@ -27,7 +29,7 @@ export const patchTodoContentApi = async ({
   payload,
 }: TPatchTodoContentApiRequestParams) => {
   const response = await apiClient.patch<TPatchTodoContentApiResponse>(
-    todoApisUrlFactory.patchTodoContentUrl(pathParams),
+    todoApisUrlFactory.patchTodoContentApiUrl(pathParams),
     payload
   );
 
@@ -43,7 +45,7 @@ export const patchTodoContentApi = async ({
 
 export const toggleTodoCompletedApi = async ({ pathParams }: TToggleTodoCompletedApiRequestParams) => {
   const response = await apiClient.patch<TToggleTodoCompletedApiResponse>(
-    todoApisUrlFactory.toggleTodoCompletedUrl(pathParams)
+    todoApisUrlFactory.toggleTodoCompletedApiUrl(pathParams)
   );
 
   return response.data;
@@ -51,8 +53,16 @@ export const toggleTodoCompletedApi = async ({ pathParams }: TToggleTodoComplete
 
 export const postTodoApi = async ({ payload }: TPostTodoApiRequestParams) => {
   const response = await apiClient.post<TPostTodoApiResponse>(
-    todoApisUrlFactory.postTodoUrl(),
+    todoApisUrlFactory.postTodoApiUrl(),
     payload
+  );
+
+  return response.data;
+};
+
+export const deleteTodoApi = async ({ pathParams }: TDeleteTodoApiRequestParams) => {
+  const response = await apiClient.delete<TDeleteTodoApiResponse>(
+    todoApisUrlFactory.deleteTodoApiUrl(pathParams)
   );
 
   return response.data;

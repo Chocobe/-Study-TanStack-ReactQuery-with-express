@@ -5,6 +5,7 @@ import TodoList from '@/features/todoListFeature/components/TodoList/TodoList';
 import TodoListActions from '@/features/todoListFeature/components/TodoListActions/TodoListActions';
 import useAddTodo from '@/features/todoListFeature/hooks/useAddTodo';
 import useTodoListActions from '@/features/todoListFeature/hooks/useTodoListActions';
+import useDeleteTodoMutation from '@/features/todoListFeature/mutations/useDeleteTodoMutation';
 import usePatchTodoContentMutation from '@/features/todoListFeature/mutations/usePatchTodoContentMutation';
 import usePostTodoMutation from '@/features/todoListFeature/mutations/usePostTodoMutation';
 import useToggleTodoCompletedMutation from '@/features/todoListFeature/mutations/useToggleTodoCompletedMutation';
@@ -15,6 +16,7 @@ function TodoListPage() {
   const postTodoMutation = usePostTodoMutation();
   const patchTodoContentMutation = usePatchTodoContentMutation();
   const toggleTodoCompletedMutation = useToggleTodoCompletedMutation();
+  const deleteTodoMutation = useDeleteTodoMutation();
 
   const {
     isAddMode,
@@ -68,6 +70,7 @@ function TodoListPage() {
         items={data}
         onSubmitContent={patchTodoContentMutation.mutate}
         onToggleCompleted={toggleTodoCompletedMutation.mutate}
+        onDelete={deleteTodoMutation.mutate}
       />
     </div>
   );

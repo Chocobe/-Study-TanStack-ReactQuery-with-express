@@ -62,3 +62,16 @@ export type TPostTodoApiRequestParams = TApiRequestParams<void, void, {
 }>;
 
 export type TPostTodoApiResponse = TTodoModel;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+//
+// deleteTodoApi
+//
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+export type TDeleteTodoApiRequestParams = TApiRequestParams<
+  {
+    id: number;
+  }
+>;
+
+export type TDeleteTodoApiResponse = void;
